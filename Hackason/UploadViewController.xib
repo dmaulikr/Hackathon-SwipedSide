@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UploadViewController">
+            <connections>
+                <outlet property="_baseView" destination="jM2-u8-9VV" id="WN0-AS-evD"/>
+                <outlet property="_contentsCollectionView" destination="FiI-mm-btM" id="NHu-oz-Ie1"/>
+                <outlet property="_imgView" destination="zl0-9D-Pcp" id="Tm4-2R-FHS"/>
+                <outlet property="_interactiveView" destination="7A9-A6-Emh" id="T7R-3r-dtC"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FiI-mm-btM" customClass="ContentsCollectionView">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="_title" value="Upload"/>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jM2-u8-9VV">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7A9-A6-Emh" customClass="InteractiveView">
+                            <rect key="frame" x="150" y="150" width="300" height="300"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zl0-9D-Pcp">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="zl0-9D-Pcp" firstAttribute="leading" secondItem="7A9-A6-Emh" secondAttribute="leading" id="5tD-70-aKT"/>
+                                <constraint firstAttribute="trailing" secondItem="zl0-9D-Pcp" secondAttribute="trailing" id="A17-xN-dX0"/>
+                                <constraint firstAttribute="width" constant="300" id="Df7-pT-icA"/>
+                                <constraint firstAttribute="height" constant="300" id="UDa-ox-lMw"/>
+                                <constraint firstItem="zl0-9D-Pcp" firstAttribute="top" secondItem="7A9-A6-Emh" secondAttribute="top" id="kP3-HV-reb"/>
+                                <constraint firstAttribute="bottom" secondItem="zl0-9D-Pcp" secondAttribute="bottom" id="pne-tu-al3"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="centerX" secondItem="7A9-A6-Emh" secondAttribute="centerX" id="5Tg-v1-9QI"/>
+                        <constraint firstAttribute="centerY" secondItem="7A9-A6-Emh" secondAttribute="centerY" id="sxV-Iu-8rs"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="FiI-mm-btM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bgw-h8-KdE"/>
+                <constraint firstAttribute="trailing" secondItem="jM2-u8-9VV" secondAttribute="trailing" id="bvu-rm-jMG"/>
+                <constraint firstAttribute="bottom" secondItem="FiI-mm-btM" secondAttribute="bottom" id="gUH-9e-1JM"/>
+                <constraint firstAttribute="bottom" secondItem="jM2-u8-9VV" secondAttribute="bottom" id="hiV-iQ-OO6"/>
+                <constraint firstItem="jM2-u8-9VV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="nLR-6g-ZbV"/>
+                <constraint firstItem="jM2-u8-9VV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rhd-Ol-dAk"/>
+                <constraint firstItem="FiI-mm-btM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tan-OL-08n"/>
+                <constraint firstAttribute="trailing" secondItem="FiI-mm-btM" secondAttribute="trailing" id="u5G-ie-vic"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

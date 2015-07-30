@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <scenes>
+        <!--Main View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ced-em-w2H" userLabel="_viewContents">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="550"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TB8-bY-rdy">
+                                <rect key="frame" x="0.0" y="550" width="600" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b1h-pc-wRA">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                        <state key="normal" title="Upload">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onTapUpload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x5Q-kQ-edz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="twS-dT-1h8">
+                                        <rect key="frame" x="300" y="0.0" width="300" height="50"/>
+                                        <state key="normal" title="DownLoad">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onTapDownload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="K1d-KG-J7O"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="b1h-pc-wRA" firstAttribute="top" secondItem="TB8-bY-rdy" secondAttribute="top" id="1ag-GE-Qy5"/>
+                                    <constraint firstAttribute="trailing" secondItem="twS-dT-1h8" secondAttribute="trailing" id="6zq-Ze-ZTY"/>
+                                    <constraint firstAttribute="bottom" secondItem="twS-dT-1h8" secondAttribute="bottom" id="FSj-4n-VIL"/>
+                                    <constraint firstItem="twS-dT-1h8" firstAttribute="leading" secondItem="b1h-pc-wRA" secondAttribute="trailing" id="Sgk-fd-FYh"/>
+                                    <constraint firstAttribute="height" constant="50" id="TKh-pz-Q7m"/>
+                                    <constraint firstItem="b1h-pc-wRA" firstAttribute="leading" secondItem="TB8-bY-rdy" secondAttribute="leading" id="cJS-OM-RV7"/>
+                                    <constraint firstAttribute="bottom" secondItem="b1h-pc-wRA" secondAttribute="bottom" id="fVp-NH-TgS"/>
+                                    <constraint firstItem="twS-dT-1h8" firstAttribute="width" secondItem="b1h-pc-wRA" secondAttribute="width" id="gSH-90-BJ6"/>
+                                    <constraint firstItem="twS-dT-1h8" firstAttribute="top" secondItem="TB8-bY-rdy" secondAttribute="top" id="hvs-7g-3OX"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ced-em-w2H" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Efn-2B-xel"/>
+                            <constraint firstItem="TB8-bY-rdy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="LaK-ih-ZXw"/>
+                            <constraint firstItem="ced-em-w2H" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="NgM-7j-82x"/>
+                            <constraint firstItem="TB8-bY-rdy" firstAttribute="top" secondItem="ced-em-w2H" secondAttribute="bottom" id="XYX-gS-Tjp"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="TB8-bY-rdy" secondAttribute="bottom" id="mWc-1R-ULr"/>
+                            <constraint firstAttribute="trailing" secondItem="TB8-bY-rdy" secondAttribute="trailing" id="tou-qC-jEe"/>
+                            <constraint firstAttribute="trailing" secondItem="ced-em-w2H" secondAttribute="trailing" id="um9-bT-Fod"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="_viewContainer" destination="ced-em-w2H" id="nM6-Sh-E7k"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5" y="-178"/>
+        </scene>
+    </scenes>
+</document>
