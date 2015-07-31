@@ -69,7 +69,9 @@
 {
     FUNC();
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.backgroundColor = [UIColor greenColor];
+    btn.backgroundColor = [UIColor blackColor];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    btn.titleLabel.font = [ UIFont fontWithName:@"Zapfino" size:24];
     btn.frame = CGRectMake(SCREEN_W * 0.8, SCREEN_H - 60, SCREEN_W * 0.2, 60);
     [btn setTitle:@"投稿" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(postComment)
@@ -86,6 +88,7 @@
     }
     tmpTxt = _textField.text;
     // 通信中......
+
     [self.apiManager connect:@"http://prez.pya.jp/Hackason/RegisterComment.php"
                     postData:[NSDictionary dictionaryWithObjectsAndKeys:
                               [NSString stringWithFormat:@"%d", appData.selectedMajor], @"nearest_major",
@@ -144,8 +147,17 @@
     FUNC();
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btn.frame = CGRectMake(SCREEN_W - 100, 10, 100, 30);
-    btn.backgroundColor = [UIColor whiteColor];
-    [btn setTitle:@"Close" forState:UIControlStateNormal];
+
+    
+    UIImage *closeImage = [[UIImage alloc] init];
+    closeImage = [UIImage imageNamed:@"close.png"];
+    UIImageView *closeImageView
+    = [[UIImageView alloc] initWithFrame:CGRectMake(10, -32, closeImage.size.width / 7, closeImage.size.height / 7)];
+    closeImageView.image = closeImage;
+    [btn addSubview:closeImageView];
+    
+    btn.backgroundColor = [UIColor clearColor];
+    [btn setTitle:@"" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(backColleView)
   forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:btn];
@@ -166,6 +178,8 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     FUNC();
+    [super viewDidAppear:YES];
+    
     [self.DetailImageView removeFromSuperview];
     content.major = appData.selectedMajor;
     content.minor = appData.selectedMinor;

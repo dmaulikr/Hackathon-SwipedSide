@@ -9,7 +9,9 @@
 #import "Observer.h"
 
 @implementation Observer
-
+{
+    AppData *appDara;
+}
 - (id)init
 {
     FUNC();
@@ -22,6 +24,7 @@
 {
     FUNC();
     if(self = [super init]) {
+        appDara = [AppData SharedManager];
         NSLog(@"- (id)initWith: (CLBeaconRegion *)searchBeaconRegion");
         self.observer = [CLLocationManager new];
         self.observer.delegate = self;
@@ -37,6 +40,7 @@
     if (status == kCLAuthorizationStatusNotDetermined) {
         NSLog(@"kCLAuthorizationStatusNotDetermined");
     } else if(status == kCLAuthorizationStatusAuthorizedAlways) {
+        // if([CLLocationManager is ])
         [manager startMonitoringForRegion:  self.searchBeaconRegion];
         NSLog(@"startMonitoringForRegion");
     } else if(status == kCLAuthorizationStatusAuthorizedWhenInUse) {
@@ -90,9 +94,8 @@
 {
     //FUNC();
     CLBeaconRegion *nearestBeacon = beacons.firstObject;
-    //NSLog(@"nearestBeacon:major=%d, minor=%d", [nearestBeacon.major intValue], [nearestBeacon.minor intValue]);
-    [AppData SharedManager].nearestBeacon.major = [nearestBeacon.major intValue];
-    [AppData SharedManager].nearestBeacon.minor = [nearestBeacon.minor intValue];
+    appDara.nearestBeacon.major = [nearestBeacon.major intValue];
+    appDara.nearestBeacon.minor = [nearestBeacon.minor intValue];
 }
 
 - (void)startMonitoringRegion

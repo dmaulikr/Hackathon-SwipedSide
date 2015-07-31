@@ -20,8 +20,11 @@
     AppData *_appData;
     
     __weak IBOutlet UIView *_viewContainer;
+    __weak IBOutlet UIButton *uploadTabButton;
+    __weak IBOutlet UIButton *downloadTabButton;
     UploadViewController   *_uploadViewController;
     DownloadViewController *_downloadViewController;
+    
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder
@@ -58,10 +61,31 @@
 // 二つの画面をメインに追加
 - (void)viewDidLoad
 {
+    FUNC();
     [super viewDidLoad];
     [_viewContainer addSubview:_downloadViewController.view];
     [_viewContainer addSubview:_uploadViewController.view];
+    
+    [self initTab];
 }
+- (void)initTab
+{
+    FUNC();
+    UIImage *uploadImage = [[UIImage alloc] init];
+    uploadImage = [UIImage imageNamed:@"uploadIcon.png"];
+    UIImageView *uploadImageView
+    = [[UIImageView alloc] initWithFrame:CGRectMake(40, 0, uploadImage.size.width / 5, uploadImage.size.height / 5)];
+    uploadImageView.image = uploadImage;
+    [downloadTabButton addSubview:uploadImageView];
+
+    UIImage *downloadImage = [[UIImage alloc] init];
+    downloadImage = [UIImage imageNamed:@"download.png"];
+    UIImageView *downloadImageView
+    = [[UIImageView alloc] initWithFrame:CGRectMake(60, 0, downloadImage.size.width / 5, downloadImage.size.height / 5)];
+    downloadImageView.image = downloadImage;
+    [uploadTabButton addSubview:downloadImageView];
+}
+
 
 #pragma mark-<Move Screen>
 - (IBAction)onTapUpload:(id)sender

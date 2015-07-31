@@ -71,6 +71,16 @@
     
     [self initSwipedImageViews];
     [self initBlurView];
+    [self titleGen];
+}
+- (void)titleGen
+{
+    UILabel *title;
+    title = [[UILabel alloc] initWithFrame:CGRectMake(95, 0, 200, 60)];
+    title.text = @"UPLOAD";
+    title.font = [UIFont boldSystemFontOfSize:32.0f];
+    title.textColor = [UIColor grayColor];
+    [self.view addSubview:title];
 }
 /*
  * スワイプされるコンテンツ・ビュー群の初期化
@@ -142,13 +152,19 @@
                                  url:[NSURL URLWithString: @"http://prez.pya.jp/Hackason/RegisterContents.php"]];
     
     // コレクション・ビュー再描画// minor値はサーバーに登録されないと取得できないため遅延させる
-    NSTimer *tm = [[NSTimer alloc] init];
-    tm = [NSTimer scheduledTimerWithTimeInterval:5.0f
+    [NSTimer scheduledTimerWithTimeInterval:5.0f
                                           target:self
                                         selector:@selector(loadSwipedContent)
                                         userInfo:nil
                                          repeats:NO
-          ];
+    ];
+//    NSTimer *tm = [[NSTimer alloc] init];
+//    tm = [NSTimer scheduledTimerWithTimeInterval:5.0f
+//                                          target:self
+//                                        selector:@selector(loadSwipedContent)
+//                                        userInfo:nil
+//                                         repeats:NO
+//          ];
     // スワイプした画像を不可視に
     [_baseView setAlpha:0];
     // ブラー効果
@@ -184,8 +200,9 @@
 {
     FUNC();
     LOG(@"idx(=minor): %d", idx);
-    Contents *selectedContents = [Contents new];
-    selectedContents = ((Contents *)[_appData.arrUploadContents objectAtIndex:idx]);
+//    Contents *selectedContents = [Contents new];
+//    selectedContents = ((Contents *)[_appData.arrUploadContents objectAtIndex:idx]);
+    Contents *selectedContents = ((Contents *)[_appData.arrUploadContents objectAtIndex:idx]);
     _appData.selectedMinor = selectedContents.minor;
     _appData.selectedMajor = selectedContents.major;
     _appData.selectedImage = selectedContents.image;

@@ -27,6 +27,7 @@
     ReverSwipeViewController *reverSwipeViewController;
     ImageManager             *_imageManager;
     __weak IBOutlet ContentsCollectionView *_contentsCollectionView;
+    NSTimer *tm;
 }
 
 - (instancetype)init
@@ -36,6 +37,7 @@
     if (self) {
         _appData      = [AppData SharedManager];
         _imageManager = [ImageManager new];
+        tm = [[NSTimer alloc] init];
     }
     return self;
 }
@@ -58,6 +60,16 @@
     [_contentsCollectionView setContentsList:_appData.arrDownloadContents];////////////
     [_contentsCollectionView setDelegate:self];
     [_contentsCollectionView initCollectionView];
+    [self titleGen];
+}
+- (void)titleGen
+{
+    UILabel *title;
+    title = [[UILabel alloc] initWithFrame:CGRectMake(70, 0, 200, 60)];
+    title.text = @"DOWNLOAD";
+    title.font = [UIFont boldSystemFontOfSize:32.0f];
+    title.textColor = [UIColor grayColor];
+    [self.view addSubview:title];
 }
 /*
  * ここのコンテンツ・ビューの処理が微妙......
@@ -66,7 +78,6 @@
 {
     FUNC();
     [super viewDidAppear:animated];
-    NSTimer *tm = [[NSTimer alloc] init];
     // タイミングの問題
     tm = [NSTimer scheduledTimerWithTimeInterval:5.0f
                                           target:self
@@ -104,8 +115,9 @@
 {
     FUNC();
     LOG(@"idx(=minor): %d", idx);
-    Contents *selectedContents = [Contents new];
-    selectedContents = ((Contents *)[_appData.arrDownloadContents objectAtIndex:idx]);
+    Contents *selectedContents = ((Contents *)[_appData.arrDownloadContents objectAtIndex:idx]);
+//    Contents *selectedContents= [[Contents alloc] init];
+//    selectedContents = ((Contents *)[_appData.arrDownloadContents objectAtIndex:idx]);
     _appData.selectedMinor = selectedContents.minor;
     _appData.selectedMajor = selectedContents.major;
     _appData.selectedImage = selectedContents.image;

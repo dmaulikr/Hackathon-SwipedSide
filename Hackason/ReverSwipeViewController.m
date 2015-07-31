@@ -18,6 +18,7 @@
     AppData                  *appdata;
     UIImageView              *downnerSwipedImageView;
     UISwipeGestureRecognizer *swipeDownGesture;
+    UILabel *assistComment;
 }
 
 - (void)viewDidLoad
@@ -28,9 +29,25 @@
     appdata = [AppData SharedManager];
     [self backButtonGen];
     [self initSwipeDownGesture];
+    [self initBackGroundImage];
     [self initDownnerSwipedImageView];
 }
-
+- (void)initBackGroundImage
+{
+    FUNC();
+    UIImage     *backGroundImage     = [UIImage imageNamed:@"downSwiped.png"];
+    UIImageView *backGroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_W / 2 -150 , SCREEN_H / 2 - 150, 300, 300)];
+    backGroundImageView.image = backGroundImage;
+    self.view.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:backGroundImageView];
+    
+    assistComment = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_W / 2 -150 , 70, 300, 50)];
+    assistComment.text = @"下にスワイプしてダウンロード";
+    assistComment.textColor = [UIColor blackColor];
+    assistComment.textAlignment = UITextAlignmentCenter;
+    assistComment.font = [UIFont boldSystemFontOfSize:18.0f];
+    [self.view addSubview:assistComment];
+}
 - (void)initDownnerSwipedImageView
 {
     FUNC();
@@ -61,11 +78,19 @@
 {
     FUNC();
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    btn.frame     = CGRectMake(SCREEN_W - 100, 10, 100, 30);
-    btn.backgroundColor = [UIColor whiteColor];
-    [btn setTitle:@"Close" forState:UIControlStateNormal];
-    [btn addTarget:self
-            action:@selector(backColleView)
+    btn.frame = CGRectMake(SCREEN_W - 100, 10, 100, 30);
+    
+    
+    UIImage *closeImage = [[UIImage alloc] init];
+    closeImage = [UIImage imageNamed:@"close.png"];
+    UIImageView *closeImageView
+    = [[UIImageView alloc] initWithFrame:CGRectMake(10, -32, closeImage.size.width / 7, closeImage.size.height / 7)];
+    closeImageView.image = closeImage;
+    [btn addSubview:closeImageView];
+    
+    btn.backgroundColor = [UIColor clearColor];
+    [btn setTitle:@"" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(backColleView)
   forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:btn];
 }
@@ -101,6 +126,7 @@
                      animations:^ {
                          downnerSwipedImageView.transform = CGAffineTransformIdentity;
                      } completion:^(BOOL result) {
+                         assistComment.text = @"ダウンロード完了";
                      }
      ];
 }
@@ -123,12 +149,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     FUNC();
+    [super viewWillAppear:YES];
+    assistComment.text = @"下にスワイプしてダウンロード";
     downnerSwipedImageView.transform
     = CGAffineTransformMakeTranslation(0, -downnerSwipedImageView.height);
 }
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     FUNC();
+    [super viewWillDisappear:YES];
     downnerSwipedImageView.alpha = 0.0f;
 }
 

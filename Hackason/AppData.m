@@ -27,12 +27,14 @@ static AppData* sharedAppData = nil;
 - (AppData *)init
 {
     FUNC();
-    self.apiManager          = [[ApiManager alloc] init];
-    self.queryHelper         = [[QueryHelper alloc] init];
-    self.arrUploadContents   = [NSArray array];
-    self.arrDownloadContents = [NSArray array];
-    self.nearestBeacon       = [NearestBeacon new];
-    self.selectedImage       = [UIImage new];
+    if (self = [super init]) {
+        self.apiManager          = [[ApiManager alloc] init];
+        self.queryHelper         = [[QueryHelper alloc] init];
+        self.arrUploadContents   = [NSArray array];
+        self.arrDownloadContents = [NSArray array];
+        self.nearestBeacon       = [NearestBeacon new];
+        self.selectedImage       = [UIImage new];
+    }
     
     return self;
 }
