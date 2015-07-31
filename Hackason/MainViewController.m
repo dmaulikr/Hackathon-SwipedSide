@@ -15,8 +15,7 @@
 
 @end
 
-@implementation MainViewController
-{
+@implementation MainViewController{
     AppData *_appData;
     
     __weak IBOutlet UIView *_viewContainer;
@@ -25,6 +24,7 @@
     UploadViewController   *_uploadViewController;
     DownloadViewController *_downloadViewController;
     
+    BOOL _canChange;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder
@@ -53,6 +53,8 @@
         [_downloadViewController didMoveToParentViewController:self];
         
         [self setTransitioningDelegate:self];
+        
+        _canChange = true;
         
     }
     return self;
@@ -100,15 +102,20 @@
     [self changeMode:_uploadViewController toViewController:_downloadViewController];
 }
 
-- (void)changeMode:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController
-{
+- (void)changeMode:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController{
     FUNC();
+    
+    if (!_canChange) return;
+    
+    _canChange = false;
     [self transitionFromViewController:fromViewController
                       toViewController:toViewController
                               duration:1.0
                                options:UIViewAnimationOptionTransitionNone
-                            animations:^ {}
-                            completion:^(BOOL finished) {}];
+                            animations:^{}
+                            completion:^(BOOL finished){
+                                _canChange = true;
+                            }];
 }
 
 @end

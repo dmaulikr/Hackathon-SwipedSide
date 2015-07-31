@@ -24,8 +24,7 @@
 }
 -(void)uploadSwipedImage: (UIImage *)image
                     text: (NSString *)text
-                     url:(NSURL *)url
-{
+                     url:(NSURL *)url{
     FUNC();
     Contents *contents = [[Contents alloc] init];
     contents.major = appData.nearestBeacon.major;
@@ -49,7 +48,6 @@
         NSInteger status = [[responseData objectForKey:@"status"] integerValue];
         if (status == -1) {
             NSLog(@"画像のUploadに失敗");
-            
             return;
         }
         contents.minor = [[[responseData objectForKey:@"data"] objectForKey:@"minor"] intValue];
@@ -57,7 +55,7 @@
         [self saveImage:contents];
         appData.arrUploadContents = [self getContents:contents];
         NSLog(@"success %@", responseData);
-    } fail:^(NSInteger status) {
+    } fail:^(NSInteger status){
         LOG(@"画像のUploadに失敗: %ld", (long)status);
     }
     ];
