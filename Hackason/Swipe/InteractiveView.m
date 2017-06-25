@@ -10,14 +10,13 @@
 int const kMinVelocity = -1000;
 int const kVelocity = -2000;
 
-@implementation InteractiveView{
-    
+@implementation InteractiveView {
     float _startY;
     float _defaultViewY;
-
     UIPanGestureRecognizer *_pan;
 }
-- (void)drawRect:(CGRect)rect{
+
+- (void)drawRect:(CGRect)rect {
     FUNC();
     [super drawRect:rect];
     UIPanGestureRecognizer *panGestureRecognizer =[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(viewDragged:)];
@@ -25,35 +24,29 @@ int const kVelocity = -2000;
     _defaultViewY = self.y;
 }
 
-
-- (void)viewDragged:(id)sender{
+- (void)viewDragged:(id)sender {
     _pan = sender;
-    if(_pan.state == UIGestureRecognizerStateBegan){
+    if(_pan.state == UIGestureRecognizerStateBegan) {
         _startY = self.y;
-    }else if(_pan.state == UIGestureRecognizerStateChanged){
+    } else if(_pan.state == UIGestureRecognizerStateChanged) {
         [self moveView];
-    }else{
+    } else {
         [self animateDragFinish];
     }
 }
 
-- (void)animateDragFinish{
-    //float diffY = _defaultViewY - (_startY + [_pan translationInView:self].y);
+- (void)animateDragFinish {
     float velocityY = [_pan velocityInView:self].y;
-    
-    if(velocityY < kMinVelocity){
-        
-        if([self.delegate respondsToSelector:@selector(didFinishSwipe)]){
-            //[self.delegate didFinishSwipe];////////////////////////////////////////////////////
+    if(velocityY < kMinVelocity) {
+        if([self.delegate respondsToSelector:@selector(didFinishSwipe)]) {
         }
-        
         [self animateSwipe:velocityY];
-    }else{
+    } else {
         [self animateSwipeCancel];
     }
 }
 
-- (void)animateSwipe:(float)velocityY{
+- (void)animateSwipe:(float)velocityY {
     [UIView animateWithDuration:1.0f
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
@@ -65,7 +58,7 @@ int const kVelocity = -2000;
                      }];
 }
 
-- (void)animateSwipeCancel{
+- (void)animateSwipeCancel {
     [UIView animateWithDuration:0.2f
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
@@ -75,7 +68,7 @@ int const kVelocity = -2000;
                      }];
 }
 
-- (void)animateFadeInView{
+- (void)animateFadeInView {
     self.alpha = 0;
     self.y = _defaultViewY;
     [UIView animateWithDuration:0.2f
@@ -87,16 +80,14 @@ int const kVelocity = -2000;
                      }];
 }
 
-- (void)moveView{
+- (void)moveView {
     CGPoint point = [_pan translationInView:self];
-    
     float nextY = _startY + point.y;
     
-    if(_defaultViewY - nextY < 0){
+    if(_defaultViewY - nextY < 0) {
         self.y = _startY + (point.y * 0.1);
-    }else{
+    } else {
         self.y = _startY + (point.y);
     }
 }
-
 @end

@@ -33,7 +33,6 @@
 {
     FUNC();
     [super awakeFromNib];
-
     _appData = [AppData SharedManager];
     [_labelTitle setText:_title];
 }
@@ -55,13 +54,10 @@
     FUNC();
     UINib *nib = [UINib nibWithNibName:@"ImageCollectionViewCell" bundle:nil];
     [_collectionView registerNib:nib forCellWithReuseIdentifier:@"cellcontents"];
-    
     [_collectionView setDelegate:self];
     [_collectionView setDataSource:self];
-    
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)[_collectionView collectionViewLayout];
     float cellSize = (SCREEN_W - [flowLayout minimumInteritemSpacing]) / 2;
-    
     [flowLayout setItemSize:CGSizeMake(cellSize, cellSize)];
     [_collectionView setCollectionViewLayout:flowLayout];
 }
@@ -78,13 +74,11 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    
     return [_arrContents count];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    
     return 1;
 }
 
@@ -95,14 +89,11 @@
     cell.ivContents.contentMode =  UIViewContentModeScaleAspectFill;
     Contents *contents = _arrContents[indexPath.row];
     [cell.ivContents setImage:contents.image];
-
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     FUNC();
-    NSLog(@"section = %d, row = %d", indexPath.section, indexPath.row);
     [self.delegate didTapImageViewOfCellectionWithIndex:indexPath.row];
 }
-
 @end

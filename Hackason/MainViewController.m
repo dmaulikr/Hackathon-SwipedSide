@@ -31,10 +31,8 @@
 {
     FUNC();
     self = [super initWithCoder:coder];
-    if (self){
+    if (self) {
         _appData = [AppData SharedManager];
-        
-        // #########################################################################
         _appData.arrUploadContents = [_appData.queryHelper selectUploadContents];
         for (Contents *contents in _appData.arrUploadContents) {
              [ImageManager loadImage:contents];
@@ -43,31 +41,24 @@
         for (Contents *contents in _appData.arrDownloadContents) {
             [ImageManager loadImage:contents];
         }
-        
         _uploadViewController = [[UploadViewController alloc] init];
         [self addChildViewController:_uploadViewController];
         [_uploadViewController didMoveToParentViewController:self];
-        
         _downloadViewController = [[DownloadViewController alloc] init];
         [self addChildViewController:_downloadViewController];
         [_downloadViewController didMoveToParentViewController:self];
-        
         [self setTransitioningDelegate:self];
-        
         _canChange = true;
-        
     }
     return self;
 }
 
-// 二つの画面をメインに追加
 - (void)viewDidLoad
 {
     FUNC();
     [super viewDidLoad];
     [_viewContainer addSubview:_downloadViewController.view];
     [_viewContainer addSubview:_uploadViewController.view];
-    
     [self initTab];
 }
 - (void)initTab
@@ -79,7 +70,6 @@
     = [[UIImageView alloc] initWithFrame:CGRectMake(40, 0, uploadImage.size.width / 5, uploadImage.size.height / 5)];
     uploadImageView.image = uploadImage;
     [downloadTabButton addSubview:uploadImageView];
-
     UIImage *downloadImage = [[UIImage alloc] init];
     downloadImage = [UIImage imageNamed:@"download.png"];
     UIImageView *downloadImageView
@@ -87,7 +77,6 @@
     downloadImageView.image = downloadImage;
     [uploadTabButton addSubview:downloadImageView];
 }
-
 
 #pragma mark-<Move Screen>
 - (IBAction)onTapUpload:(id)sender
@@ -102,11 +91,11 @@
     [self changeMode:_uploadViewController toViewController:_downloadViewController];
 }
 
-- (void)changeMode:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController{
+- (void)changeMode:(UIViewController *)fromViewController toViewController:(UIViewController *)toViewController {
     FUNC();
-    
-    if (!_canChange) return;
-    
+    if (!_canChange) {
+        return;
+    }
     _canChange = false;
     [self transitionFromViewController:fromViewController
                       toViewController:toViewController
@@ -117,5 +106,4 @@
                                 _canChange = true;
                             }];
 }
-
 @end

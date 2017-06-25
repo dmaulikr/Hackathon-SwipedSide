@@ -32,6 +32,7 @@
     [self initBackGroundImage];
     [self initDownnerSwipedImageView];
 }
+
 - (void)initBackGroundImage
 {
     FUNC();
@@ -48,6 +49,7 @@
     assistComment.font = [UIFont boldSystemFontOfSize:18.0f];
     [self.view addSubview:assistComment];
 }
+
 - (void)initDownnerSwipedImageView
 {
     FUNC();
@@ -79,21 +81,19 @@
     FUNC();
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btn.frame = CGRectMake(SCREEN_W - 100, 10, 100, 30);
-    
-    
     UIImage *closeImage = [[UIImage alloc] init];
     closeImage = [UIImage imageNamed:@"close.png"];
     UIImageView *closeImageView
     = [[UIImageView alloc] initWithFrame:CGRectMake(10, -32, closeImage.size.width / 7, closeImage.size.height / 7)];
     closeImageView.image = closeImage;
     [btn addSubview:closeImageView];
-    
     btn.backgroundColor = [UIColor clearColor];
     [btn setTitle:@"" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(backColleView)
-  forControlEvents:UIControlEventTouchDown];
+        forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:btn];
 }
+
 -(void)backColleView
 {
     FUNC();
@@ -107,7 +107,6 @@
     Contents *content = [Contents new];
     content.major = appdata.nearestBeacon.major;
     content.minor = appdata.nearestBeacon.minor;
-
     NSString *rawURL
     = [NSString stringWithFormat:@"http://prez.pya.jp/Hackason/images/major%d/minor%d.jpg", content.major, content.minor];
     NSURL *urlForDownloadContents = [NSURL URLWithString:rawURL];
@@ -115,7 +114,6 @@
     content.image = [ImageManager getImageServerWithURL:urlForDownloadContents];
     downnerSwipedImageView.image = content.image;
     downnerSwipedImageView.alpha = 1.0f;
-    
     [appdata.queryHelper insertDownLoadContents:content];
     [ImageManager saveImage:content];
     appdata.arrDownloadContents = [self getContents:content];
@@ -161,5 +159,4 @@
     [super viewWillDisappear:YES];
     downnerSwipedImageView.alpha = 0.0f;
 }
-
 @end

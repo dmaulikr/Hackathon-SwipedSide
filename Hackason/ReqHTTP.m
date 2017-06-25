@@ -30,30 +30,20 @@
     @{
       @"Content-Type" : [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary]
       };
-    
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
-    
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-    // postデータの作成
     NSMutableData* data = [NSMutableData data];
-    // テキスト部分の設定
-    for (id key in [textDictionary keyEnumerator])
-    {
+    for (id key in [textDictionary keyEnumerator]) {
         NSString* value = [textDictionary valueForKey:key];
-        
         [data appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
         [data appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data;"] dataUsingEncoding:NSUTF8StringEncoding]];
         [data appendData:[[NSString stringWithFormat:@"name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];
         [data appendData:[[NSString stringWithFormat:@"%@\r\n", value] dataUsingEncoding:NSUTF8StringEncoding]];
     }
-    
-    // 画像の設定
-    for (int i = 0; i < [imageDictionary count]; i++)
-    {
+    for (int i = 0; i < [imageDictionary count]; i++) {
         NSString* key = [[imageDictionary allKeys] objectAtIndex:i];
         NSData* value = [imageDictionary valueForKey:key];
         NSString* name = [NSString stringWithFormat:@"upload_file%d", i];
-        
         [data appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
         [data appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data;"] dataUsingEncoding:NSUTF8StringEncoding]];
         [data appendData:[[NSString stringWithFormat:@"name=\"%@\";", name] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -62,18 +52,15 @@
         [data appendData:value];
         [data appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
     }
-    
-    // 最後にバウンダリを付ける
     [data appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     request.HTTPMethod = @"POST";
     request.HTTPBody = data;
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        [session invalidateAndCancel];//メモリリーク対策
-        if(error){
+        [session invalidateAndCancel];
+        if(error) {
             requestFailHandler(-1);
-        }else{
+        } else {
             NSError *err = nil;
-            
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                                  options:NSJSONReadingMutableContainers
                                                                    error:&err];
@@ -83,10 +70,7 @@
             }
             requestDoneHandler(json);
         }
-        
     }];
-    
     [task resume];
 }
-
 @end

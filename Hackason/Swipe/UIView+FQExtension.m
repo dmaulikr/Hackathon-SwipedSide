@@ -10,76 +10,71 @@
 
 @implementation UIView (FQExtension)
 
-- (CGFloat)x{
+- (CGFloat)x {
     return [self frame].origin.x;
 }
 
-- (void)setX:(CGFloat)x{
+- (void)setX:(CGFloat)x {
     CGRect rect = [self frame];
     CGPoint point = rect.origin;
     point.x = x;
-    
     rect.origin = point;
     [self setFrame:rect];
 }
 
-- (CGFloat)y{
+- (CGFloat)y {
     return [self frame].origin.y;
 }
 
-- (void)setY:(CGFloat)y{
+- (void)setY:(CGFloat)y {
     CGRect rect = [self frame];
     CGPoint point = rect.origin;
     point.y = y;
-    
     rect.origin = point;
     [self setFrame:rect];
 }
 
-- (CGFloat)width{
+- (CGFloat)width {
     return [self frame].size.width;
 }
 
-- (void)setWidth:(CGFloat)width{
+- (void)setWidth:(CGFloat)width {
     CGRect rect = [self frame];
     CGSize size = rect.size;
     size.width = width;
-
     rect.size = size;
     [self setFrame:rect];
 }
 
-- (CGFloat)height{
+- (CGFloat)height {
     return [self frame].size.height;
 }
 
-- (void)setHeight:(CGFloat)height{
+- (void)setHeight:(CGFloat)height {
     CGRect rect = [self frame];
     CGSize size = rect.size;
     size.height = height;
-    
     rect.size = size;
     [self setFrame:rect];
 }
 
-- (CGFloat)centerX{
+- (CGFloat)centerX {
     return [self center].x;
 }
 
-- (void)setCenterX:(CGFloat)centerX{
+- (void)setCenterX:(CGFloat)centerX {
     CGPoint center = [self center];
     center.x = centerX;
     [self setCenter:center];
 }
 
-- (CGFloat)centerY{
+- (CGFloat)centerY {
     return [self center].y;
 }
 
-- (void)setCenterY:(CGFloat)centerY{
+- (void)setCenterY:(CGFloat)centerY {
     CGPoint center = [self center];
     center.y = centerY;
     [self setCenter:center];
 }
-
 @end

@@ -35,8 +35,6 @@ static AppData* sharedAppData = nil;
         self.nearestBeacon       = [NearestBeacon new];
         self.selectedImage       = [UIImage new];
     }
-    
     return self;
 }
-
 @end

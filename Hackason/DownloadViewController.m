@@ -57,7 +57,7 @@
     
     dcViewController         = [DCViewController new];
     reverSwipeViewController = [ReverSwipeViewController new];
-    [_contentsCollectionView setContentsList:_appData.arrDownloadContents];////////////
+    [_contentsCollectionView setContentsList:_appData.arrDownloadContents];
     [_contentsCollectionView setDelegate:self];
     [_contentsCollectionView initCollectionView];
     [self titleGen];
@@ -71,6 +71,7 @@
     title.textColor = [UIColor grayColor];
     [self.view addSubview:title];
 }
+
 /*
  * ここのコンテンツ・ビューの処理が微妙......
  */
@@ -78,7 +79,6 @@
 {
     FUNC();
     [super viewDidAppear:animated];
-    // タイミングの問題
     tm = [NSTimer scheduledTimerWithTimeInterval:5.0f
                                           target:self
                                         selector:@selector(loadSwipedContent)
@@ -93,7 +93,7 @@
     FUNC();
     [super didReceiveMemoryWarning];
 }
-// ダウンロード画面に移行
+
 - (void)onTapAdd
 {
     FUNC();
@@ -116,19 +116,14 @@
     FUNC();
     LOG(@"idx(=minor): %d", idx);
     Contents *selectedContents = ((Contents *)[_appData.arrDownloadContents objectAtIndex:idx]);
-//    Contents *selectedContents= [[Contents alloc] init];
-//    selectedContents = ((Contents *)[_appData.arrDownloadContents objectAtIndex:idx]);
     _appData.selectedMinor = selectedContents.minor;
     _appData.selectedMajor = selectedContents.major;
     _appData.selectedImage = selectedContents.image;
     LOG(@"selectedMajor: %d", _appData.selectedMajor);
     LOG(@"selectedMinor: %d", _appData.selectedMinor);
-    
     [self presentViewController:dcViewController
                        animated:YES
                      completion:^() {
-                         LOG(@"==================詳細画面へ遷移==================");
                      }];
 }
-
 @end

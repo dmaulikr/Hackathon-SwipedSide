@@ -81,14 +81,10 @@
 -(void)postComment
 {
     FUNC();
-    
     if ([tmpTxt isEqual:_textField.text] || [_textField isEqual:@""]) {
-        
         return;
     }
     tmpTxt = _textField.text;
-    // 通信中......
-
     [self.apiManager connect:@"http://prez.pya.jp/Hackason/RegisterComment.php"
                     postData:[NSDictionary dictionaryWithObjectsAndKeys:
                               [NSString stringWithFormat:@"%d", appData.selectedMajor], @"nearest_major",
@@ -99,10 +95,8 @@
                     complete:^(NSArray *success) {
                         LOG(@"postComment Success");
                         [self fetchComments];
-                        // 通信完了!
                     } error:^(NSDictionary *error) {
                         LOG(@"postComment Error");
-                        // 通信に失敗しました......
                     }
      ];
 }
@@ -116,7 +110,7 @@
 -(void)fetchComments
 {
     FUNC();
-    [self.apiManager connect:@"http://prez.pya.jp/Hackason/FetchComment.php"
+    [self.apiManager connect:@"http://****/Hackason/FetchComment.php"
                     postData:[NSDictionary dictionaryWithObjectsAndKeys:
                               [NSString stringWithFormat:@"%d", appData.selectedMajor], @"select_major",
                               [NSString stringWithFormat:@"%d", appData.selectedMinor], @"select_minor",
@@ -148,7 +142,6 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     btn.frame = CGRectMake(SCREEN_W - 100, 10, 100, 30);
 
-    
     UIImage *closeImage = [[UIImage alloc] init];
     closeImage = [UIImage imageNamed:@"close.png"];
     UIImageView *closeImageView
@@ -162,11 +155,13 @@
   forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:btn];
 }
+
 -(void)backColleView
 {
     FUNC();
     [self dismissViewControllerAnimated:YES completion:^(){LOG(@"帰ってきたぞ!");}];
 }
+
 -(void)commentViewGen
 {
     self.commentView = [[UITableView alloc] initWithFrame:CGRectMake(0,0 , SCREEN_W, SCREEN_H)];
@@ -179,12 +174,10 @@
 {
     FUNC();
     [super viewDidAppear:YES];
-    
     [self.DetailImageView removeFromSuperview];
     content.major = appData.selectedMajor;
     content.minor = appData.selectedMinor;
     content       = [ImageManager loadImage:content];
-
     self.DetailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_W, content.image.size.height * (SCREEN_W / content.image.size.width))];
     self.DetailImageView.backgroundColor = [UIColor redColor];
     self.DetailImageView.image       = content.image;
@@ -199,25 +192,27 @@
 {
 
 }
+
 -(UIView *)objectInDetailImageViewAtIndex:(NSUInteger)index
 {
     FUNC();
     
     return self.DetailImageView;
 }
+
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     FUNC();
-    
     return self.DetailImageView;
 }
+
 -(void)viewDidLayoutSubviews
 {
     FUNC();
-    
     [self.scrollView setContentSize: CGSizeMake(SCREEN_W, SCREEN_H * 2)];
     [self.scrollView flashScrollIndicators];
 }
+
 #pragma mark-<textField>
 /**
  * キーボードでReturnキー選択時のイベントハンドラ
@@ -265,7 +260,6 @@ shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)strin
 {
     FUNC();
     static NSString *CellIdentifier = @"Cell";
-    
     UITableViewCell *cell = [self.commentView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -274,9 +268,9 @@ shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)strin
     
     NSString *name = self.comments[indexPath.row];
     cell.textLabel.text = name;
-    
     return cell;
 }
+
 /*
  * コメント・ビューのコメントをタップした時に，表示しきれなかったコメントを表示
  *
@@ -286,8 +280,6 @@ shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)strin
     FUNC();
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"コメント[全文]" message:self.comments[indexPath.row] delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
     [alertView show];
-    
     [self.commentView deselectRowAtIndexPath:indexPath animated:NO];
 }
-
 @end

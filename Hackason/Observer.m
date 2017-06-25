@@ -30,7 +30,6 @@
         self.observer.delegate = self;
         self.searchBeaconRegion = searchBeaconRegion;
     }
-    
     return self;
 }
 
@@ -40,7 +39,6 @@
     if (status == kCLAuthorizationStatusNotDetermined) {
         NSLog(@"kCLAuthorizationStatusNotDetermined");
     } else if(status == kCLAuthorizationStatusAuthorizedAlways) {
-        // if([CLLocationManager is ])
         [manager startMonitoringForRegion:  self.searchBeaconRegion];
         NSLog(@"startMonitoringForRegion");
     } else if(status == kCLAuthorizationStatusAuthorizedWhenInUse) {
@@ -65,13 +63,10 @@
             [manager startRangingBeaconsInRegion:(CLBeaconRegion *)region];
         } break;
         case CLRegionStateOutside: {
-            
         } break;
         case CLRegionStateUnknown: {
-            
         } break;
         default: {
-            
         } break;
     }
 }
@@ -92,7 +87,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
-    //FUNC();
     CLBeaconRegion *nearestBeacon = beacons.firstObject;
     appDara.nearestBeacon.major = [nearestBeacon.major intValue];
     appDara.nearestBeacon.minor = [nearestBeacon.minor intValue];
@@ -109,5 +103,4 @@
     FUNC();
     [self.observer stopMonitoringForRegion:self.searchBeaconRegion];
 }
-
 @end

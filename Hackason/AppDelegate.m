@@ -14,36 +14,34 @@
 
 @implementation AppDelegate
 
-// @to-do APNs安定版に書き換え
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     FUNC();
     [application registerForRemoteNotifications];
     [ImageManager makeDirForAppContents];
-    
     self.observer = [Observer new];
     [self.observer startMonitoringRegion];
     return YES;
 }
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-
 }
+
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-
 }
+
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-
 }
+
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-
 }
+
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-
 }
 
 /** 
@@ -59,13 +57,13 @@
     token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
-    NSLog(@"deviceToken: %@", token);
 }
+
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     NSLog(@"deviceToken error: %@", [error description]);
 }
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     NSLog(@"pushInfo: %@", [userInfo description]);
@@ -77,5 +75,4 @@
     completionHandler(UIBackgroundFetchResultNoData);
     [AppData SharedManager].url = @"http://133.2.37.224/tst.jpg";/////////////////////
 }
-
 @end

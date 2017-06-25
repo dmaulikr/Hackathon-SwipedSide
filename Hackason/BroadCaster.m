@@ -18,11 +18,9 @@
     FUNC();
     static BroadCaster *Singleton;
     static dispatch_once_t once;
-    
     dispatch_once( &once, ^{
         Singleton = [[BroadCaster alloc] init];
     });
-    
     return Singleton;
 }
 
@@ -43,7 +41,6 @@
 {
     FUNC();
     NSString *message;
-    
     switch (peripheral.state) {
         case CBPeripheralManagerStatePoweredOff:
             message = @"電源OFF";
@@ -63,7 +60,6 @@
         case CBPeripheralManagerStateUnsupported:
             message = @"サポート対象外";
             break;
-            
         default:
             break;
     }
@@ -79,7 +75,6 @@
     } else {
         NSLog(@"startBroadCast: ERROR");
         [self.peripheralManager startAdvertising:[self.beaconRegion peripheralDataWithMeasuredPower:nil]];
-
     }
 }
 
@@ -89,5 +84,4 @@
     [self.peripheralManager startAdvertising:[self.beaconRegion peripheralDataWithMeasuredPower:nil]];
     NSLog(@"stopBroadCast");
 }
-
 @end

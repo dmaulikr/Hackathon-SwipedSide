@@ -8,13 +8,13 @@
 
 #import "QueryHelper.h"
 #import "DbManager.h"
-@implementation QueryHelper{
+@implementation QueryHelper {
     DbManager *dbManager;
 }
 
-- (instancetype)init{
+- (instancetype)init {
     self = [super init];
-    if (self){
+    if (self) {
         FUNC();
         dbManager = [[DbManager alloc] initDb:NO];
         [self initTable];
@@ -22,7 +22,7 @@
     return self;
 }
 
-- (void)initTable{
+- (void)initTable {
     NSString *strSql = @"";
     [dbManager begin];
     
@@ -40,15 +40,15 @@
     [dbManager commit];
 }
 
-- (void)insertUploadContents:(Contents *)contents{
+- (void)insertUploadContents:(Contents *)contents {
     [self insertContents:@"TBL_UPLOAD" contents:contents];
 }
 
-- (void)insertDownLoadContents:(Contents *)contents{
+- (void)insertDownLoadContents:(Contents *)contents {
     [self insertContents:@"TBL_DOWNLOAD" contents:contents];
 }
 
-- (void)insertContents:(NSString *)strTableName contents:(Contents *)contents{
+- (void)insertContents:(NSString *)strTableName contents:(Contents *)contents {
     NSString *strSql = @"";
     strSql = [NSString stringWithFormat:@"INSERT OR REPLACE INTO %@ (", strTableName];
     strSql = [strSql stringByAppendingString:@"MAJOR, "];
@@ -60,14 +60,14 @@
     [dbManager update:strSql];
 }
 
-- (NSArray *)selectUploadContents{
+- (NSArray *)selectUploadContents {
     return  [self selectContents:@"TBL_UPLOAD"];
 }
-- (NSArray *)selectDownloadContents{
+- (NSArray *)selectDownloadContents {
     return  [self selectContents:@"TBL_DOWNLOAD"];
 }
 
-- (NSArray *)selectContents:(NSString *)strTableName{
+- (NSArray *)selectContents:(NSString *)strTableName {
     NSString *strSql = @"";
     NSMutableArray *aryContents = [[NSMutableArray alloc] init];
     
@@ -82,5 +82,4 @@
     }
     return [[NSArray alloc] initWithArray:aryContents];
 }
-
 @end

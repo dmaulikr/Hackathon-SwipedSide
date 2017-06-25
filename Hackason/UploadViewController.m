@@ -37,7 +37,6 @@
 }
 
 #pragma mark-<初期化>
-// @test いつ実行されるか
 - (instancetype)init
 {
     FUNC();
@@ -49,7 +48,6 @@
     }
     return self;
 }
-// @test いつ実行されるか
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
     FUNC();
@@ -63,12 +61,10 @@
 {
     FUNC();
     [super viewDidLoad];
-    
     dcViewController = [DCViewController new];
     [_contentsCollectionView setContentsList:_appData.arrUploadContents];
     [_contentsCollectionView setDelegate:self];
     [_contentsCollectionView initCollectionView];// initなのにしたでいいのか
-    
     [self initSwipedImageViews];
     [self initBlurView];
     [self titleGen];
@@ -82,6 +78,7 @@
     title.textColor = [UIColor grayColor];
     [self.view addSubview:title];
 }
+
 /*
  * スワイプされるコンテンツ・ビュー群の初期化
  */
@@ -94,6 +91,7 @@
     _interactiveView.backgroundColor = [UIColor clearColor];
     _imgView.contentMode             = UIViewContentModeScaleAspectFit;
 }
+
 /*
  * スワイプする画像を表示する時，その画像の背景にブラー効果を施す
  * これは，コンテンツの背景がコレクション・ビューでごちゃつくのが好ましくないための処理
@@ -106,6 +104,7 @@
     blurView.alpha = 0.0f;
     [self.view bringSubviewToFront:_baseView];
 }
+
 - (void)didReceiveMemoryWarning
 {
     FUNC();
@@ -118,6 +117,7 @@
     FUNC();
     [self showCameraroll];
 }
+
 - (void)showCameraroll
 {
     FUNC();
@@ -126,6 +126,7 @@
     [imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     [self presentViewController: imagePickerController animated:YES completion:nil];
 }
+
 /**
  * カメラロールから画像を取得した直後に実行されるDelegateメソッド
  */
@@ -140,6 +141,7 @@
     }];
     blurView.alpha = 1.0f;
 }
+
 /**
  * Swipeされたタイミングで実行されるDelegateメソッド
  * 同期的に書き換えれば......いいじゃない!
@@ -151,45 +153,22 @@
                                 text:@"stab"
                                  url:[NSURL URLWithString: @"http://prez.pya.jp/Hackason/RegisterContents.php"]];
     
-    // コレクション・ビュー再描画// minor値はサーバーに登録されないと取得できないため遅延させる
     [NSTimer scheduledTimerWithTimeInterval:5.0f
                                           target:self
                                         selector:@selector(loadSwipedContent)
                                         userInfo:nil
                                          repeats:NO
     ];
-//    NSTimer *tm = [[NSTimer alloc] init];
-//    tm = [NSTimer scheduledTimerWithTimeInterval:5.0f
-//                                          target:self
-//                                        selector:@selector(loadSwipedContent)
-//                                        userInfo:nil
-//                                         repeats:NO
-//          ];
-    // スワイプした画像を不可視に
     [_baseView setAlpha:0];
-    // ブラー効果
     blurView.alpha = 0.0f;
 }
+
 -(void)loadSwipedContent
 {
     FUNC();
-    [_contentsCollectionView setContentsList:_appData.arrUploadContents];//////////
+    [_contentsCollectionView setContentsList:_appData.arrUploadContents];
     [_contentsCollectionView reloadData];
 }
-
-// なんだっけ，これ......
-//- (NSArray *)getContents:(Contents *)contentsTarget
-//{
-//    NSMutableArray *arrContent = [_appData.arrUploadContents mutableCopy];
-//    for (Contents *contents in arrContent) {
-//        if (contentsTarget.minor == contents.minor) {
-//            contents.image = contentsTarget.image;
-//            return [arrContent copy];
-//        }
-//    }
-//    [arrContent addObject:contentsTarget];
-//    return [arrContent copy];
-//}
 
 #pragma mark-<画面遷移>
 /*
@@ -200,19 +179,15 @@
 {
     FUNC();
     LOG(@"idx(=minor): %d", idx);
-//    Contents *selectedContents = [Contents new];
-//    selectedContents = ((Contents *)[_appData.arrUploadContents objectAtIndex:idx]);
     Contents *selectedContents = ((Contents *)[_appData.arrUploadContents objectAtIndex:idx]);
     _appData.selectedMinor = selectedContents.minor;
     _appData.selectedMajor = selectedContents.major;
     _appData.selectedImage = selectedContents.image;
     LOG(@"selectedMajor: %d", _appData.selectedMajor);
     LOG(@"selectedMinor: %d", _appData.selectedMinor);
-    
     [self presentViewController:dcViewController
                        animated:YES
                      completion:^() {
-                         LOG(@"==================詳細画面へ遷移==================");
                      }];
 }
 

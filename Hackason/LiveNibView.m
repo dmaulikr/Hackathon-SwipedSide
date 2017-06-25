@@ -29,7 +29,6 @@
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self = view;
     }
-    
     return self;
 }
 
@@ -43,8 +42,7 @@
         [view addConstraints:constraints];
         
         return view;
-    }
-    
+    }s
     return self;
 }
 
